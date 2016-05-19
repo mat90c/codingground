@@ -14,6 +14,7 @@ public class Sleep
         short steps;
         byte category;
         short heartValue = 0;
+        int valoreAtteso = 0;
 
         for (int i = 0; i <tempData.length;i++)
         {
@@ -23,9 +24,12 @@ public class Sleep
             intensity = Short.decode(lineTemp[1]);
             steps = Short.decode(lineTemp[2]);
             timeStamp = Long.decode(lineTemp[3]);
-            //heartValue = Short.decode(lineTemp[4]);
+			
+			valoreAtteso = -1;
+			if(lineTemp.length>4 && lineTemp[4]!="")
+				valoreAtteso = Integer.decode(lineTemp[4]);
 
-            data.add(new ActivityData(timeStamp, intensity, steps, category, heartValue));
+            data.add(new ActivityData(timeStamp, intensity, steps, category, heartValue, valoreAtteso));
         }
 
         return data;

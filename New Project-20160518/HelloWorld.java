@@ -20,7 +20,7 @@ public class HelloWorld{
 		
 		PrintWriter out = null;
 		try{
-			out = new PrintWriter("esito.txt");
+			out = new PrintWriter("esito.csv");
 		}
 		catch(Exception e){return;}
         for(int i=start;i<start+800;i++)
@@ -50,8 +50,19 @@ public class HelloWorld{
             }
             ActivityData d = data.get(i);
             
+			int valoreCalcolato = sleep.getMode(d.getCategory(),d.getIntensity(),d.getSteps(), Distance, max);
 			
-			String riga = sdf.format(d.getTimestamp()*1000)+" "+d.getTimestamp()+";"+d.getCategory()+";"+d.getIntensity()+";"+d.getSteps()+" = "+sleep.getMode(d.getCategory(),d.getIntensity(),d.getSteps(), Distance, max);
+			String riga = sdf.format(d.getTimestamp()*1000)+";"+d.getTimestamp()+";"+d.getCategory()+";"+d.getIntensity()+";"+d.getSteps();
+			if(d.getValoreAtteso()>=0){
+				riga +="; atteso=;"+d.getValoreAtteso();
+			}
+			riga +="; vs;"+valoreCalcolato;
+			if(d.getValoreAtteso()>=0){
+				if(valoreCalcolato!=d.getValoreAtteso())
+					riga +=";   ERRORE";
+					else
+					riga +=";   OK";
+			}
 			
 			System.out.println(riga);
 

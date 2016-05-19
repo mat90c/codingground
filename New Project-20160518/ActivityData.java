@@ -5,17 +5,20 @@ public class ActivityData {
     private short steps;
     private short category;
     private short heartValue;
+	
+    private int valoreAtteso;
 
     /* Classes must include an empty constructor */
     public ActivityData() {
     }
 
-    public ActivityData(long timestamp, short intensity, short steps, byte category, short heartValue) {
+    public ActivityData(long timestamp, short intensity, short steps, byte category, short heartValue, int valoreAtteso) {
         this.timestamp = timestamp;
         this.intensity=intensity;
         this.steps=steps;
         this.category=category;
         this.heartValue=heartValue;
+        this.valoreAtteso=valoreAtteso;
     }
 
     public long getTimestamp() {
@@ -60,4 +63,12 @@ public class ActivityData {
         this.heartValue = heartValue;
     }
 
+
+    public int getValoreAtteso() {
+        return valoreAtteso;
+    }
+
+    public void setValoreAtteso(int valoreAtteso) {
+        this.valoreAtteso = valoreAtteso;
+    }
 }
