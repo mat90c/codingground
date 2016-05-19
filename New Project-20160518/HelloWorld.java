@@ -4,6 +4,24 @@ import java.io.*;
 
 public class HelloWorld{
 
+		public static int mode(int a[]) {
+			int maxValue=-1, maxCount=0;
+
+			for (int i = 0; i < a.length; ++i) {
+				int count = 0;
+				for (int j = 0; j < a.length; ++j) {
+					if (a[j] == a[i]) ++count;
+				}
+				if (count > maxCount) {
+					maxCount = count;
+					maxValue = a[i];
+				}
+			}
+
+			return maxValue;
+		}
+
+
      public static void main(String []args){
         //System.out.println("Hello World");
         Sleep sleep = new Sleep();
@@ -17,6 +35,7 @@ public class HelloWorld{
 		
         double Distance = 0;
         double max = 0;
+        double mode = 0;
 		
 		PrintWriter out = null;
 		try{
@@ -47,10 +66,13 @@ public class HelloWorld{
 				max = Math.max(max,data.get(i-2).getIntensity());
 				max = Math.max(max,data.get(i-3).getIntensity());
 				max = Math.max(max,data.get(i-4).getIntensity());
+				
+				
+				mode = mode(new int[]{data.get(i).getCategory(),data.get(i-1).getCategory(),data.get(i-2).getCategory(),data.get(i-3).getCategory(),data.get(i-4).getCategory()});
             }
             ActivityData d = data.get(i);
             
-			int valoreCalcolato = sleep.getMode(d.getCategory(),d.getIntensity(),d.getSteps(), Distance, max);
+			int valoreCalcolato = sleep.getMode(d.getCategory(),d.getIntensity(),d.getSteps(), Distance, max, mode);
 			
 			String riga = sdf.format(d.getTimestamp()*1000)+";"+d.getTimestamp()+";"+d.getCategory()+";"+d.getIntensity()+";"+d.getSteps();
 			if(d.getValoreAtteso()>=0){
