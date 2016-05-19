@@ -5,6 +5,10 @@ import java.io.*;
 public class HelloWorld{
 
 		public static int mode(int a[]) {
+			
+			if(a[0]!=a[1] && a[1]!=a[2] && a[2]!=a[3] && a[3]!=a[4])
+				return -1;				
+			
 			int maxValue=-1, maxCount=0;
 
 			for (int i = 0; i < a.length; ++i) {
