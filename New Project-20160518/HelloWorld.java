@@ -1,5 +1,6 @@
 import java.util.*;
 import java.text.*;
+import java.io.*;
 
 public class HelloWorld{
 
@@ -17,6 +18,11 @@ public class HelloWorld{
         double Distance = 0;
         double max = 0;
 		
+		PrintWriter out = null;
+		try{
+			out = new PrintWriter("esito.txt");
+		}
+		catch(Exception e){return;}
         for(int i=start;i<start+800;i++)
         {
 			//Distance è il numero di 0 della variabile intensity in una finestra temporale di dimensione 5 
@@ -43,7 +49,13 @@ public class HelloWorld{
 				max = Math.max(max,data.get(i-4).getIntensity());
             }
             ActivityData d = data.get(i);
-            System.out.println(sdf.format(d.getTimestamp()*1000)+" "+d.getTimestamp()+";"+d.getCategory()+";"+d.getIntensity()+";"+d.getSteps()+" = "+sleep.getMode(d.getCategory(),d.getIntensity(),d.getSteps(), Distance, max));
+            
+			
+			String riga = sdf.format(d.getTimestamp()*1000)+" "+d.getTimestamp()+";"+d.getCategory()+";"+d.getIntensity()+";"+d.getSteps()+" = "+sleep.getMode(d.getCategory(),d.getIntensity(),d.getSteps(), Distance, max);
+			
+			System.out.println(riga);
+
+			out.println(riga);
         }
      }
 }
