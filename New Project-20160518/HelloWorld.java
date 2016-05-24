@@ -34,8 +34,11 @@ public class HelloWorld{
     SimpleDateFormat sdf = new SimpleDateFormat(pattern);
     sdf.setTimeZone(TimeZone.getTimeZone("Europe/Rome"));
         
-        ArrayList<ActivityData> data = sleep.loadData(RawData1.part1+RawData2.part2+RawData3.part3);
-        final int start = 1500;
+        //ArrayList<ActivityData> data = sleep.loadData(RawData1.part1+RawData2.part2+RawData3.part3);
+        ArrayList<ActivityData> data = sleep.loadDataFile("rawdata.csv");
+		
+		
+        final int start = 0;
 		
         double Distance = 0;
         double max = 0;
@@ -46,8 +49,10 @@ public class HelloWorld{
 			out = new PrintWriter("esito.csv");
 		}
 		catch(Exception e){return;}
-        for(int i=start;i<start+800;i++)
+        for(int i=start;i<start+1200000;i++)
         {
+			if(i>=data.size())
+				return;
 			//Distance è il numero di 0 della variabile intensity in una finestra temporale di dimensione 5 
 			//Max è il massimo della variabile intensity in una finestra temporale di dimensione 5 
             if(i>5)
@@ -83,8 +88,8 @@ public class HelloWorld{
 				riga +="; atteso=;"+d.getValoreAtteso();
 			}
 			riga +="; vs;"+valoreCalcolato;
-			if(d.getValoreAtteso()>=0){
-				if(valoreCalcolato!=d.getValoreAtteso())
+			if(d.getValoreAtteso()>0){
+				if(valoreCalcolato==0)
 					riga +=";   ERRORE";
 					else
 					riga +=";   OK";
@@ -94,5 +99,7 @@ public class HelloWorld{
 
 			out.println(riga);
         }
+		
+		out.close();
      }
 }
