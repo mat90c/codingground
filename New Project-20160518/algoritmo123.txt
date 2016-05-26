@@ -1,0 +1,32 @@
+if (Distance <= 4) {
+    if (max <= 59) {
+        if (max <= 3) {
+            if (intensity <= 1) return 1;
+            if (intensity > 1) {
+                if (Distance <= 2) return 1;
+                if (Distance > 2) {
+                    if (max <= 2) {
+                        if (Distance <= 3) return 1;
+                        if (Distance > 3) return 2;
+                    }
+                    if (max > 2) {
+                        if (Distance <= 3) return 2;
+                        if (Distance > 3) return 1;
+                    }
+                }
+            }
+        }
+        if (max > 3) return 1;
+    }
+    if (max > 59) {
+        if (max <= 62) return 1;
+        if (max > 62) {
+            if (Distance <= 2) {
+                if (max <= 91) return 3;
+                if (max > 91) return 1;
+            }
+            if (Distance > 2) return 1;
+        }
+    }
+}
+if (Distance > 4) return 2;
