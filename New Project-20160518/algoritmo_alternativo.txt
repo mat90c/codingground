@@ -1,0 +1,7 @@
+Forse + logico e migliore anche se non fitta bene con il precedente
+
+if (max <= 3) {
+    if (max <= 0) return 2;
+    if (max > 0) return 1;
+}
+if (max > 3) return 1;
