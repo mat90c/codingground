@@ -79,37 +79,4 @@ public class Sleep
     } 
 	
 	
-	public int getMode(int category, int intensity, int steps, double distance, double max, double mode)
-	{
-        if (category == 0) {
-            if (distance <= 0) return 0;
-            if (distance > 0) {
-                if (distance <= 4) return 1;
-                if (distance > 4) return 0;
-            }
-        }
-        if (category == 1) return 0;
-        if (category == 3) return 0;
-        if (category == 4) {
-            if (distance <= 3) return 1;
-            if (distance > 3) {
-                if (distance <= 4) return 1;
-                if (distance > 4) return 0;
-            }
-        }
-        if (category == 5) return 1;
-        if (category == 11) {
-            if (distance <= 2) return 1;
-            if (distance > 2) return 0;
-        }
-        if (category == 12) return 0;
-        if (category == 16) return 0;
-        if (category == 17) return 0;
-        if (category == 19) return 0;
-        if (category == 21) return 1;
-        if (category == 28) return 0;
-        if (category == 33) return 0;
-        if (category == 44) return 0;
-        return 0;
-    }
 }
