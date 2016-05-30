@@ -106,6 +106,9 @@ public class HelloWorld{
 				}
 				totali1++;
 			}
+			else if(data.getValoreAtteso()==-1 && valoreCalcolato>0){
+				riga +=";   ERRORE - INVERSO";
+			}
 			
 			System.out.println(riga);
 
