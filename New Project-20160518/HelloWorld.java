@@ -89,7 +89,7 @@ public class HelloWorld{
 				mode = mode(new int[]{dataList.get(i).getCategory(),dataList.get(i-1).getCategory(),dataList.get(i-2).getCategory(),dataList.get(i-3).getCategory(),dataList.get(i-4).getCategory()});
             }
             
-			int valoreCalcolato = data.calcType(data.getCategory(),data.getIntensity(),data.getSteps(), Distance, max, mode);
+			int valoreCalcolato = data.calcType01(data.getCategory(),data.getIntensity(),data.getSteps(), Distance, max, mode);
 			
 			String riga = sdf.format(data.getTimestamp()*1000)+";"+data.getTimestamp()+";"+data.getCategory()+";"+data.getIntensity()+";"+data.getSteps();
 			if(data.getValoreAtteso()>=0){
@@ -121,15 +121,99 @@ public class HelloWorld{
 		System.out.println("Totale "+totali1);
 		out.println("Totale "+totali1);
 		
+		out.close();
+		
 		
 		//2. correggo 1 e 0 isolati errati
 		for(ActivityData data : dataList)
         {
-			
+			//TODO
 		}
 		
 		
 		//3. applico secondo algoritmo per riconoscere 1 2 3
+				
+		
+		try{
+			out = new PrintWriter("esito123.csv");
+		}
+		catch(Exception e){return;}
+		
+		
+		//TODO limitare dataList a meno elementi per test più piccoli
+		
+		//1. applico primo algoritmo per trovare 1 o 0 (sonno)
+		int errori123=0, ok123=0, totali123=0;
+		i=0;
+        for(ActivityData data : dataList)
+        {
+			if(data.getType()==0){
+				i++;
+				continue;
+			}
+			
+			//Distance è il numero di 0 della variabile intensity in una finestra temporale di dimensione 5 
+			//Max è il massimo della variabile intensity in una finestra temporale di dimensione 5 
+			//Mode è la mode della variabile category in una finestra temporale di dimensione 5 se non esiste moda si imposta a -1
+			
+			Distance = 0;
+			max=0;
+			mode=-1;
+			
+            if(i>5)
+            {
+				if(dataList.get(i).getIntensity()==0)
+					Distance++;
+				if(dataList.get(i-1).getIntensity()==0)
+					Distance++;
+				if(dataList.get(i-2).getIntensity()==0)
+					Distance++;
+				if(dataList.get(i-3).getIntensity()==0)
+					Distance++;
+				if(dataList.get(i-4).getIntensity()==0)
+					Distance++;
+				
+				max = Math.max(max,dataList.get(i).getIntensity());
+				max = Math.max(max,dataList.get(i-1).getIntensity());
+				max = Math.max(max,dataList.get(i-2).getIntensity());
+				max = Math.max(max,dataList.get(i-3).getIntensity());
+				max = Math.max(max,dataList.get(i-4).getIntensity());
+				
+				
+				mode = mode(new int[]{dataList.get(i).getCategory(),dataList.get(i-1).getCategory(),dataList.get(i-2).getCategory(),dataList.get(i-3).getCategory(),dataList.get(i-4).getCategory()});
+            }
+            
+			int valoreCalcolato = data.calcType123(data.getCategory(),data.getIntensity(),data.getSteps(), Distance, max, mode);
+			
+			String riga = sdf.format(data.getTimestamp()*1000)+";"+data.getTimestamp()+";"+data.getCategory()+";"+data.getIntensity()+";"+data.getSteps();
+			if(data.getValoreAtteso()>=0){
+				riga +="; atteso=;"+data.getValoreAtteso();
+			}
+			riga +="; vs;"+valoreCalcolato;
+			if(data.getValoreAtteso()>0){
+				if(valoreCalcolato!=data.getValoreAtteso()){
+					riga +=";   ERRORE";
+					errori123++;
+				}else{
+					riga +=";   OK";
+					ok123++;
+				}
+				totali123++;
+			}
+			
+			System.out.println(riga);
+
+			out.println(riga);
+			
+			i++;
+        }
+		
+		System.out.println("Errori123 "+errori123);
+		out.println("Errori123 "+errori123);
+		System.out.println("Esatti123 "+ok123);
+		out.println("Esatti123 "+ok123);
+		System.out.println("Totale123 "+totali123);
+		out.println("Totale123 "+totali123);
 		
 		out.close();
      }

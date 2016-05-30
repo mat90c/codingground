@@ -84,14 +84,14 @@ public class ActivityData {
 	
 	
 	
-	public int calcType(int category, int intensity, int steps, double distance, double max, double mode)
+	public int calcType01(int category, int intensity, int steps, double distance, double max, double mode)
 	{
-		type = calcTypeMethod(category, intensity, steps, distance, max, mode);
+		type = calcType01Method(category, intensity, steps, distance, max, mode);
 		return type;
 	}
 	
 	
-	private int calcTypeMethod(int category, int intensity, int steps, double distance, double max, double mode)
+	private int calcType01Method(int category, int intensity, int steps, double distance, double max, double mode)
 	{
       if (category == 0) {
             if (distance <= 0) return 0;
@@ -122,6 +122,52 @@ public class ActivityData {
         if (category == 28) return 0;
         if (category == 33) return 0;
         if (category == 44) return 0;
+        return 0;
+    }
+	
+	
+	
+	public int calcType123(int category, int intensity, int steps, double Distance, double max, double mode)
+	{
+		type = calcType123Method(category, intensity, steps, Distance, max, mode);
+		return type;
+	}
+	
+	private int calcType123Method(int category, int intensity, int steps, double Distance, double max, double mode)
+	{
+     if (Distance <= 4) {
+    if (max <= 59) {
+        if (max <= 3) {
+            if (intensity <= 1) return 1;
+            if (intensity > 1) {
+                if (Distance <= 2) return 1;
+                if (Distance > 2) {
+                    if (max <= 2) {
+                        if (Distance <= 3) return 1;
+                        if (Distance > 3) return 2;
+                    }
+                    if (max > 2) {
+                        if (Distance <= 3) return 2;
+                        if (Distance > 3) return 1;
+                    }
+                }
+            }
+        }
+        if (max > 3) return 1;
+    }
+    if (max > 59) {
+        if (max <= 62) return 1;
+        if (max > 62) {
+            if (Distance <= 2) {
+                if (max <= 91) return 3;
+                if (max > 91) return 1;
+            }
+            if (Distance > 2) return 1;
+        }
+    }
+}
+if (Distance > 4) return 2;
+
         return 0;
     }
 }
